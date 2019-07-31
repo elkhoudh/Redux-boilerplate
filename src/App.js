@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route } from "react-router-dom";
+import Dashboard from "./containers/Dashboard";
+import Login from "./containers/Login";
+import Register from "./containers/Register";
+import LandingPage from "./containers/LandingPage";
+import { Auth } from "./containers/auth-HOC";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const ProtectedDashboard = Auth(Dashboard);
+
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={ProtectedDashboard} />
+      </div>
+    );
+  }
 }
 
 export default App;
